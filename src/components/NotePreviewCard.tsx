@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, makeStyles } from '@material-ui/core';
+import { Note } from '../reducers/notes/notesSlice';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -23,13 +24,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const NotePreviewCard: React.FC = () => {
+type Props = {
+  note: Note;
+};
+
+export const NotePreviewCard: React.FC<Props> = ({ note }) => {
   const classes = useStyles();
 
   return (
     <Box p={2} className={classes.card}>
-      <h2>My Notes</h2>
-      <p>Hey hey hey, I'm taking notes. WOOP!</p>
+      <h2>{note.header}</h2>
+      <p>{note.body}</p>
       <span className={classes.ribbon} />
     </Box>
   );

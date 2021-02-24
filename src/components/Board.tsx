@@ -3,7 +3,8 @@ import { NotesPreviewList } from './NotesPreviewList';
 import { Box, Grid, makeStyles } from '@material-ui/core';
 import { Search } from './Search';
 import { AddNoteButton } from './buttons/AddNoteButton';
-import { NoteCard } from './NoteCard';
+import { NoteCard } from './NoteCard/NoteCard';
+import { Note, NoteChangePayload, NotesState } from '../reducers/notes/notesSlice';
 
 const useStyles = makeStyles(() => ({
   board: {
@@ -19,25 +20,43 @@ const useStyles = makeStyles(() => ({
   searchWrapper: {
     width: 'calc(100% - 44px)',
   },
+  box: {
+    borderBottom: '1px solid #dedede',
+  },
 }));
 
-export const Board: React.FC = () => {
+type Props = {
+  notes: NotesState['notes'];
+  selectedNote: NotesState['selectedNote'];
+  options: {
+    dispatchAddNote: () => void;
+    dispatchChangeNote: (payload: NoteChangePayload) => void;
+  };
+};
+
+export const Board: React.FC<Props> = ({ notes, selectedNote, options }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.board}>
       <Grid container className={classes.container}>
         <Grid item xs={5} className={classes.leftCol}>
-          <Box display={'flex'} p={2} alignItems={'center'} justifyContent={'space-between'}>
+          <Box
+            p={2}
+            className={classes.box}
+            display={'flex'}
+            alignItems={'center'}
+            justifyContent={'space-between'}
+          >
             <div className={classes.searchWrapper}>
               <Search />
             </div>
-            <AddNoteButton />
+            <AddNoteButton onClick={options.dispatchAddNote} />
           </Box>
-          <NotesPreviewList />
+          <NotesPreviewList notes={notes} />
         </Grid>
         <Grid item xs={7}>
-          <NoteCard />
+          <NoteCard note={selectedNote} noteChange={options.dispatchChangeNote} />
         </Grid>
       </Grid>
     </div>

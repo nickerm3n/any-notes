@@ -1,15 +1,19 @@
 import React from 'react';
 import { NotePreviewCard } from './NotePreviewCard';
+import { Note } from '../reducers/notes/notesSlice';
 
-export const NotesPreviewList: React.FC = () => {
+type Props = {
+  notes: Note[];
+};
+
+export const NotesPreviewList: React.FC<Props> = ({ notes }) => {
   return (
     <ul>
-      <li style={{ margin: 2 }}>
-        <NotePreviewCard />
-      </li>
-      <li style={{ margin: 2 }}>
-        <NotePreviewCard />
-      </li>
+      {notes.map(note => (
+        <li style={{ margin: 2 }} key={note.id}>
+          <NotePreviewCard note={note} />
+        </li>
+      ))}
     </ul>
   );
 };
