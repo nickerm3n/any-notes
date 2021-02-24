@@ -3,6 +3,7 @@ import { NotesPreviewList } from './NotesPreviewList';
 import { Box, Grid, makeStyles } from '@material-ui/core';
 import { Search } from './Search';
 import { AddNoteButton } from './buttons/AddNoteButton';
+import { NoteCard } from './NoteCard';
 
 const useStyles = makeStyles(() => ({
   board: {
@@ -36,7 +37,7 @@ export const Board: React.FC = () => {
           <NotesPreviewList />
         </Grid>
         <Grid item xs={7}>
-          <textarea>123</textarea>
+          <NoteCard />
         </Grid>
       </Grid>
     </div>
