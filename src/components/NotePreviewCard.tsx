@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, makeStyles } from '@material-ui/core';
+import { Box, makeStyles, Popover, Typography } from '@material-ui/core';
 import { Note } from '../reducers/notes/notesSlice';
 
 const useStyles = makeStyles(theme => ({
@@ -20,22 +20,24 @@ const useStyles = makeStyles(theme => ({
     top: 0,
     bottom: 0,
     width: 4,
-    background: 'tomato',
   },
 }));
 
 type Props = {
   note: Note;
+  selectNote: (payload: Note) => void;
 };
 
-export const NotePreviewCard: React.FC<Props> = ({ note }) => {
+export const NotePreviewCard: React.FC<Props> = ({ note, selectNote }) => {
   const classes = useStyles();
 
+  console.log(note.color);
+
   return (
-    <Box p={2} className={classes.card}>
+    <Box p={2} className={classes.card} onClick={() => selectNote(note)}>
       <h2>{note.header}</h2>
       <p>{note.body}</p>
-      <span className={classes.ribbon} />
+      <span className={classes.ribbon} style={{ background: note.color }} />
     </Box>
   );
 };

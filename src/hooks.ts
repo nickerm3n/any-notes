@@ -4,7 +4,12 @@ import { AppDispatch, RootState } from './store';
 import {
   addNoteAction,
   changeNoteAction,
+  Note,
   NoteChangePayload,
+  NoteColorPayload,
+  removeNoteAction,
+  selectNote,
+  selectNoteColor,
   selectNotes,
 } from './reducers/notes/notesSlice';
 
@@ -18,12 +23,18 @@ export const useNotes = () => {
   const { notes, selectedNote } = state;
 
   const dispatchAddNote = () => dispatch(addNoteAction());
+  const dispatchSelectNote = (payload: Note) => dispatch(selectNote(payload));
   const dispatchChangeNote = (payload: NoteChangePayload) => dispatch(changeNoteAction(payload));
+  const dispatchSelectNoteColor = (payload: NoteColorPayload) => dispatch(selectNoteColor(payload));
+  const dispatchRemoveNote = (payload: Note) => dispatch(removeNoteAction(payload));
 
   return {
     notes,
     selectedNote,
     dispatchAddNote,
+    dispatchSelectNote,
     dispatchChangeNote,
+    dispatchSelectNoteColor,
+    dispatchRemoveNote,
   };
 };

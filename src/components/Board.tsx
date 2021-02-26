@@ -4,7 +4,14 @@ import { Box, Grid, makeStyles } from '@material-ui/core';
 import { Search } from './Search';
 import { AddNoteButton } from './buttons/AddNoteButton';
 import { NoteCard } from './NoteCard/NoteCard';
-import { Note, NoteChangePayload, NotesState } from '../reducers/notes/notesSlice';
+import {
+  Note,
+  NoteChangePayload,
+  NoteColorPayload,
+  NotesState,
+  selectNote,
+  selectNoteColor,
+} from '../reducers/notes/notesSlice';
 
 const useStyles = makeStyles(() => ({
   board: {
@@ -30,7 +37,10 @@ type Props = {
   selectedNote: NotesState['selectedNote'];
   options: {
     dispatchAddNote: () => void;
+    dispatchSelectNote: (payload: Note) => void;
     dispatchChangeNote: (payload: NoteChangePayload) => void;
+    dispatchSelectNoteColor: (payload: NoteColorPayload) => void;
+    dispatchRemoveNote: (payload: Note) => void;
   };
 };
 
@@ -53,10 +63,18 @@ export const Board: React.FC<Props> = ({ notes, selectedNote, options }) => {
             </div>
             <AddNoteButton onClick={options.dispatchAddNote} />
           </Box>
-          <NotesPreviewList notes={notes} />
+          <NotesPreviewList
+            notes={notes}
+            selectNote={options.dispatchSelectNote}
+            selectNoteColor={options.dispatchSelectNoteColor}
+          />
         </Grid>
         <Grid item xs={7}>
-          <NoteCard note={selectedNote} noteChange={options.dispatchChangeNote} />
+          <NoteCard
+            note={selectedNote}
+            noteChange={options.dispatchChangeNote}
+            removeNote={options.dispatchRemoveNote}
+          />
         </Grid>
       </Grid>
     </div>

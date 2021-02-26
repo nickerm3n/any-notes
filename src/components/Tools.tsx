@@ -3,6 +3,8 @@ import { Box, makeStyles } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import ShareIcon from '@material-ui/icons/Share';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ArchiveIcon from '@material-ui/icons/Archive';
+import { Note } from '../reducers/notes/notesSlice';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -12,7 +14,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const Tools: React.FC = () => {
+type Props = {
+  note: Note;
+  removeNote: (payload: Note) => void;
+};
+
+export const Tools: React.FC<Props> = ({ note, removeNote }) => {
   const classes = useStyles();
 
   return (
@@ -24,6 +31,9 @@ export const Tools: React.FC = () => {
         <ShareIcon />
       </button>
       <button className={classes.button}>
+        <ArchiveIcon />
+      </button>
+      <button className={classes.button} onClick={() => removeNote(note)}>
         <DeleteIcon />
       </button>
     </Box>
