@@ -15,11 +15,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const AddNoteButton: React.FC = () => {
+type Props = {
+  onClick: () => void;
+};
+
+export const AddNoteButton: React.FC<Props> = ({ onClick }) => {
   const classes = useStyles();
 
   return (
-    <button className={classes.button}>
+    <button className={classes.button} onClick={onClick}>
       <NoteAddIcon />
     </button>
   );
