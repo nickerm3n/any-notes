@@ -27,13 +27,24 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const Search: React.FC = () => {
+type Props = {
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  value: string;
+};
+
+export const Search: React.FC<Props> = ({ onChange, value }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.wrapper}>
       <SearchIcon className={classes.icon} />
-      <input type="text" className={classes.input} placeholder={'Search Notes'} />
+      <input
+        type="text"
+        className={classes.input}
+        placeholder={'Search Notes'}
+        onChange={onChange}
+        value={value}
+      />
     </div>
   );
 };
