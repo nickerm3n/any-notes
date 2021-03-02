@@ -1,80 +1,40 @@
 import React from 'react';
-import { NotesPreviewList } from './NotesPreviewList';
-import { Box, Grid, makeStyles } from '@material-ui/core';
-import { Search } from './Search';
-import { AddNoteButton } from './buttons/AddNoteButton';
-import { NoteCard } from './NoteCard/NoteCard';
-import {
-  Note,
-  NoteChangePayload,
-  NoteColorPayload,
-  NotesState,
-  selectNote,
-  selectNoteColor,
-} from '../reducers/notes/notesSlice';
+import { Grid, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
   board: {
     flexGrow: 1,
     borderRight: '1px solid #dedede',
+    height: '100%',
   },
   container: {
     height: '100%',
   },
   leftCol: {
     borderRight: '1px solid #dedede',
+    background: 'rgba(255, 255, 255, 0.9)',
   },
-  searchWrapper: {
-    width: 'calc(100% - 44px)',
-  },
-  box: {
-    borderBottom: '1px solid #dedede',
+  rightCol: {
+    background: 'rgba(255, 255, 255, 0.8)',
   },
 }));
 
 type Props = {
-  notes: NotesState['notes'];
-  selectedNote: NotesState['selectedNote'];
-  options: {
-    dispatchAddNote: () => void;
-    dispatchSelectNote: (payload: Note) => void;
-    dispatchChangeNote: (payload: NoteChangePayload) => void;
-    dispatchSelectNoteColor: (payload: NoteColorPayload) => void;
-    dispatchRemoveNote: (payload: Note) => void;
-  };
+  leftComp: React.ComponentType;
+  rightComp: React.ComponentType;
 };
 
-export const Board: React.FC<Props> = ({ notes, selectedNote, options }) => {
+export const Board: React.FC<Props> = ({ leftComp: LeftComponent, rightComp: RightComponent }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.board}>
       <Grid container className={classes.container}>
         <Grid item xs={5} className={classes.leftCol}>
-          <Box
-            p={2}
-            className={classes.box}
-            display={'flex'}
-            alignItems={'center'}
-            justifyContent={'space-between'}
-          >
-            <div className={classes.searchWrapper}>
-              <Search />
-            </div>
-            <AddNoteButton onClick={options.dispatchAddNote} />
-          </Box>
-          <NotesPreviewList
-            notes={notes}
-            selectNote={options.dispatchSelectNote}
-            selectNoteColor={options.dispatchSelectNoteColor}
-          />
+          <LeftComponent />
         </Grid>
-        <Grid item xs={7}>
-          <NoteCard
-            note={selectedNote}
-            noteChange={options.dispatchChangeNote}
-            removeNote={options.dispatchRemoveNote}
-          />
+        <Grid item xs={7} className={classes.rightCol}>
+          <RightComponent />
         </Grid>
       </Grid>
     </div>

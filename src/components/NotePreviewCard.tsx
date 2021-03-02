@@ -31,8 +31,6 @@ type Props = {
 export const NotePreviewCard: React.FC<Props> = ({ note, selectNote }) => {
   const classes = useStyles();
 
-  console.log(note.color);
-
   return (
     <Box p={2} className={classes.card} onClick={() => selectNote(note)}>
       <h2>{note.header}</h2>
