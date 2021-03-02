@@ -1,7 +1,7 @@
 import React from 'react';
-import { NotePreviewCard } from './NotePreviewCard';
-import { Note, NoteColorPayload } from '../reducers/notes/notesSlice';
-import { SettingPopover } from './SettingPopover';
+import { NotePreviewCard } from '../NotePreviewCard';
+import { Note, NoteColorPayload } from '../../reducers/notes/notesSlice';
+import { SettingPopover } from '../SettingPopover';
 
 type Props = {
   notes: Note[];

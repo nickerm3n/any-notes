@@ -24,3 +24,7 @@ export const checkBodyPlaceholder = (note: Note): string => {
 export const checkPlaceholder = (note: Note): boolean => {
   return !Boolean(checkHeaderPlaceholder(note)) && !Boolean(checkBodyPlaceholder(note));
 };
+
+export const validateValue = (value: string): boolean => {
+  return !Boolean(value);
+};

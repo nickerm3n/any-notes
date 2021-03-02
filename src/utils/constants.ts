@@ -9,3 +9,5 @@ export const COLORS_PALETTE = [
   '#221e1f',
   '#95b03e',
 ];
+export const BACKGROUND_PLACEHOLDER =
+  'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081';
