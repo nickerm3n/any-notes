@@ -22,7 +22,7 @@ export const PhotosPicker: React.FC<Props> = ({ photos, onClick }) => {
     <Box className={classes.picker} display={'flex'} flexWrap={'wrap'}>
       {photos.map(photo => {
         return (
-          <div onClick={() => onClick(photo)}>
+          <div onClick={() => onClick(photo)} key={photo.id}>
             <PhotoCard photo={photo} />
           </div>
         );

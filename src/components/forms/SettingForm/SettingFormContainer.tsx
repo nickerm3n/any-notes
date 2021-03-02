@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SettingForm } from './SettingForm';
 import { SettingControl } from './SettingControl';
 import { Box, Button } from '@material-ui/core';
@@ -9,12 +9,20 @@ import { useSettingForm } from './SettingFormHooks';
 import { PhotoCard } from '../../PhotosPicker/PhotoCard';
 import { useAppDispatch } from '../../../hooks';
 import { updateUser } from '../../../reducers/user/userSlice';
+import { useSnackbar } from 'notistack';
 
 export const SettingFormContainer: React.FC = () => {
   const { user } = useSettingForm();
   const dispatch = useAppDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+
   const [username, setUsername] = useState(user.username);
   const [background, setBackground] = useState(user.background);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    setIsSubmitted(false);
+  }, [username, background]);
 
   const handleUsernameChange = (event: any) => setUsername(event.target.value);
 
@@ -28,6 +36,10 @@ export const SettingFormContainer: React.FC = () => {
         background,
       }),
     );
+    enqueueSnackbar('Successfully saved', {
+      variant: 'success',
+    });
+    setIsSubmitted(true);
   };
 
   const isValid = validateValue(username);
@@ -45,7 +57,12 @@ export const SettingFormContainer: React.FC = () => {
         <PhotosPickerContainer onClick={handleBackgroundChange} />
       </Box>
       <div>
-        <Button variant="contained" color="primary" type={'submit'} disabled={isValid}>
+        <Button
+          variant="contained"
+          color="primary"
+          type={'submit'}
+          disabled={isSubmitted || isValid}
+        >
           Save
         </Button>
       </div>
